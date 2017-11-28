@@ -12,7 +12,7 @@ public class Library {
     public void login() throws SQLException{
             Connection conn = DriverManager.getConnection(url, username, password);
             throw new SQLException("ERROR");
-    }
+    } // This need to be improved.
 
 
 
