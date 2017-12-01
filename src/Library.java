@@ -7,24 +7,25 @@ import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Library {
+public class Library extends Librarian{
 
-	private String url = "jdbc:mysql://leia.skip.chalmers.se:3306/team1?autoReconnect=true&useSSL=false";
-	private String username = "teamone";
-	private String password = "HSaaD5vtp3K6QERq";
-	private Connection conn;
+/*	private String url = "jdbc:mysql://leia.skip.chalmers.se:3306/team1?autoReconnect=true&useSSL=false";
+*	private String username = "teamone";
+*	private String password = "HSaaD5vtp3K6QERq";
+*	private Connection conn;
+*
+*	public Connection login() throws SQLException {
+*		try {
+*			conn = DriverManager.getConnection(url, username, password);
+*		} catch (Exception E) {
+*			return null;
+*		}
+*		return conn;
+*		// throw new SQLException("ERROR");
+*	} // This need to be improved.
+*/
 
-	public Connection login() throws SQLException {
-		try {
-			conn = DriverManager.getConnection(url, username, password);
-		} catch (Exception E) {
-			return null;
-		}
-		return conn;
-		// throw new SQLException("ERROR");
-	} // This need to be improved.
-
-	public ResultSet sortTitle() throws SQLException {
+	public ResultSet sortTitle(Connection conn) throws SQLException {
 		// SORT BY TITLE CODE TO TEST
 		try {
 			login();
@@ -42,7 +43,7 @@ public class Library {
 
 	}
 
-	public ResultSet sortTitleDesc() throws SQLException {
+	public ResultSet sortTitleDesc(Connection conn) throws SQLException {
 		// SORT BY TITLE DESC CODE TO TEST
 		try {
 			login();
@@ -59,7 +60,7 @@ public class Library {
 
 	}
 
-	public ResultSet sortSurname() throws SQLException {
+	public ResultSet sortSurname(Connection conn) throws SQLException {
 		// SORT BY SURNAME CODE TO TEST
 		try {
 			login();
@@ -76,7 +77,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortSurnameDes() throws SQLException {
+	public ResultSet sortSurnameDes(Connection conn) throws SQLException {
 		// SORT BY SURNAME DESC CODE TO TEST
 		try {
 			login();
@@ -93,7 +94,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortFirstName() throws SQLException {
+	public ResultSet sortFirstName(Connection conn) throws SQLException {
 		// SORT BY FIRSTNAME CODE TO TEST
 		try {
 			login();
@@ -110,7 +111,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortFirstNameDesc() throws SQLException {
+	public ResultSet sortFirstNameDesc(Connection conn) throws SQLException {
 		// SORT BY FIRSTNAME DESC CODE TO TEST
 		try {
 			login();
@@ -127,7 +128,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortGenre() throws SQLException {
+	public ResultSet sortGenre(Connection conn) throws SQLException {
 		// SORT BY GENRE CODE TO TEST
 
 		try {
@@ -145,7 +146,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortGenreDesc() throws SQLException {
+	public ResultSet sortGenreDesc(Connection conn) throws SQLException {
 		// SORT BY GENRE DESC CODE TO TEST;
 		try {
 			login();
@@ -162,7 +163,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortPublisher() throws SQLException {
+	public ResultSet sortPublisher(Connection conn) throws SQLException {
 		// SORT BY PUBLISHER CODE TO TEST
 		try {
 			login();
@@ -179,7 +180,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortPublisherDesc() throws SQLException {
+	public ResultSet sortPublisherDesc(Connection conn) throws SQLException {
 		// SORT BY PUBLISHER DESC CODE TO TEST
 		try {
 			login();
@@ -195,7 +196,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortShelf() throws SQLException {
+	public ResultSet sortShelf(Connection conn) throws SQLException {
 		// SORT BY SHELF CODE TO TEST
 		try {
 			login();
@@ -211,7 +212,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortShelfDesc() throws SQLException {
+	public ResultSet sortShelfDesc(Connection conn) throws SQLException {
 		// SORT BY SHELF DESC CODE TO TEST
 		try {
 			login();
@@ -227,24 +228,7 @@ public class Library {
 		}
 	}
 
-	public void removeBook() throws SQLException {
-		
-		try{
-			login();
-		
-		// THIS IS PROBABLY WRONG AND NEEDS TESTING
-		String sqlRemoveBook = "DELETE FROM book WHERE book_id = ?;";
-		Statement pStatement = conn.prepareStatement(sqlRemoveBook);
-		pStatement.executeUpdate(sqlRemoveBook);
-		conn.close();
-		}catch (SQLException e) {
-			System.out.println(e);
-			
-		}
-
-	}
-
-	public ResultSet searchBookPublisher() throws SQLException{
+	public ResultSet searchBookPublisher(Connection conn) throws SQLException{
 		// SEARCH BOOK BY PUBLISHER
 		try {
 			login();
@@ -260,7 +244,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet searchBookGenre() throws SQLException {
+	public ResultSet searchBookGenre(Connection conn) throws SQLException {
 		// SEARCH BOOK BY GENRE 
 		try {
 			login();
