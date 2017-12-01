@@ -9,23 +9,22 @@ import java.sql.Statement;
 
 public class Library {
 
-    private String url = "jdbc:mysql://leia.skip.chalmers.se:3306/team1?autoReconnect=true&useSSL=false";
-    private String username = "teamone";
-    private String password = "HSaaD5vtp3K6QERq";
-    private Connection conn;
+	private String url = "jdbc:mysql://leia.skip.chalmers.se:3306/team1?autoReconnect=true&useSSL=false";
+	private String username = "teamone";
+	private String password = "HSaaD5vtp3K6QERq";
+	private Connection conn;
 
-    public Connection login() throws SQLException {
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-        }catch (Exception E){
-            return null;
-        }
-        return conn;
-        //throw new SQLException("ERROR");
-    } // This need to be improved.
-    
-    
-    public ResultSet sortTitle() throws SQLException {
+	public Connection login() throws SQLException {
+		try {
+			conn = DriverManager.getConnection(url, username, password);
+		} catch (Exception E) {
+			return null;
+		}
+		return conn;
+		// throw new SQLException("ERROR");
+	} // This need to be improved.
+
+	public ResultSet sortTitle() throws SQLException {
 		// SORT BY TITLE CODE TO TEST
 		try {
 			login();
@@ -180,7 +179,7 @@ public class Library {
 		}
 	}
 
-	public ResultSet sortPublisherDesc() throws SQLException{
+	public ResultSet sortPublisherDesc() throws SQLException {
 		// SORT BY PUBLISHER DESC CODE TO TEST
 		try {
 			login();
@@ -228,6 +227,52 @@ public class Library {
 		}
 	}
 
-    
-    
+	public void removeBook() throws SQLException {
+		
+		try{
+			login();
+		
+		// THIS IS PROBABLY WRONG AND NEEDS TESTING
+		String sqlRemoveBook = "DELETE FROM book WHERE book_id = ?;";
+		Statement pStatement = conn.prepareStatement(sqlRemoveBook);
+		pStatement.executeUpdate(sqlRemoveBook);
+		conn.close();
+		}catch (SQLException e) {
+			System.out.println(e);
+			
+		}
+
+	}
+
+	public ResultSet searchBookPublisher() throws SQLException{
+		// SEARCH BOOK BY PUBLISHER
+		try {
+			login();
+			
+			String searchPublisher = "SELECT * FROM book WHERE book_publisher = ?;";
+			Statement st = conn.createStatement();
+			ResultSet result = st.executeQuery(searchPublisher);
+			conn.close();
+			return result;
+		}catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+
+	public ResultSet searchBookGenre() throws SQLException {
+		// SEARCH BOOK BY GENRE 
+		try {
+			login();
+			
+			String searchGenre = "SELECT * FROM book WHERE book_genre = ?;";
+			Statement st = conn.createStatement();
+			ResultSet result = st.executeQuery(searchGenre);
+			conn.close();
+			return result;
+			}catch (SQLException e) {
+				System.out.println(e);
+				return null;
+			}
+	}
 }
