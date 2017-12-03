@@ -9,3 +9,5 @@ have conflict if the others do the same ?
 
 Thinking of changing the name of method login() to setConnection ? Also what about having this method and other methods which 
 we might need to user inside an individual class( name it Tools ) ? 
+
+or what do u think man? 
