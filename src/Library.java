@@ -7,24 +7,9 @@ import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Library extends Librarian{
+public class Library extends Librarian {
 
-/*	private String url = "jdbc:mysql://leia.skip.chalmers.se:3306/team1?autoReconnect=true&useSSL=false";
-*	private String username = "teamone";
-*	private String password = "HSaaD5vtp3K6QERq";
-*	private Connection conn;
-*
-*	public Connection login() throws SQLException {
-*		try {
-*			conn = DriverManager.getConnection(url, username, password);
-*		} catch (Exception E) {
-*			return null;
-*		}
-*		return conn;
-*		// throw new SQLException("ERROR");
-*	} // This need to be improved.
-*/
-
+	
 	public ResultSet sortTitle(Connection conn) throws SQLException {
 		// SORT BY TITLE CODE TO TEST
 		try {
@@ -228,35 +213,69 @@ public class Library extends Librarian{
 		}
 	}
 
-	public ResultSet searchBookPublisher(Connection conn) throws SQLException{
+	public ResultSet searchBookPublisher(Connection conn) throws SQLException {
 		// SEARCH BOOK BY PUBLISHER
 		try {
 			login();
-			
+
 			String searchPublisher = "SELECT * FROM book WHERE book_publisher = ?;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(searchPublisher);
 			conn.close();
 			return result;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 			return null;
 		}
 	}
 
 	public ResultSet searchBookGenre(Connection conn) throws SQLException {
-		// SEARCH BOOK BY GENRE 
+		// SEARCH BOOK BY GENRE
 		try {
 			login();
-			
+
 			String searchGenre = "SELECT * FROM book WHERE book_genre = ?;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(searchGenre);
 			conn.close();
 			return result;
-			}catch (SQLException e) {
-				System.out.println(e);
-				return null;
-			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
 	}
+
+	public ResultSet searchAuthorAvailbilty(Connection conn) throws SQLException {
+		// SEARCH AVAILABLE BOOKS BY AUTHOR
+		try {
+			login();
+
+			String searchAvailableAuthor = "SELECT * FROM book WHERE book_availabilty = 1 AND WHERE book_author = ?;";
+			Statement st = conn.createStatement();
+			ResultSet result = st.executeQuery(searchAvailableAuthor);
+			conn.close();
+			return result;
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+
+	public ResultSet seachGenreAvailablity(Connection conn) throws SQLException {
+		// SEARCH AVILABLE GENRES
+		try {
+			login();
+
+			String searchAvailableGenre = "SELECT * FROM book WHERE book_availablity = 1 AND WHERE book_author = ?;";
+			Statement st = conn.createStatement();
+			ResultSet result = st.executeQuery(searchAvailableGenre);
+			conn.close();
+			return result;
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+
 }
+
