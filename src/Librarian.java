@@ -23,7 +23,7 @@ public class Librarian {
 		// throw new SQLException("ERROR");
 	} // This need to be improved.
 
-	public void removeBook(Connection conn) throws SQLException {
+	public void removeBook() throws SQLException {
 
 		try {
 			login();
@@ -40,7 +40,7 @@ public class Librarian {
 
 	}
 
-	public ResultSet totalFines(Connection conn) throws SQLException {
+	public ResultSet totalFines() throws SQLException {
 		// TOTAL SOME OF FINES
 		try {
 			login();
@@ -56,7 +56,7 @@ public class Librarian {
 		}
 	}
 
-	public ResultSet finesTable(Connection conn) throws SQLException {
+	public ResultSet finesTable() throws SQLException {
 		// SHOW THE FINES TABLE
 		try {
 			login();
@@ -73,44 +73,44 @@ public class Librarian {
 
 	}
 
-	public ResultSet finesDue(Connection conn) throws SQLException{
-		//SHOWS THE LATEST FINE DUE FROM FINEWS TABLE
+	public ResultSet finesDue() throws SQLException {
+		// SHOWS THE LATEST FINE DUE FROM FINEWS TABLE
 		try {
 			login();
-			
+
 			String finesDue = "SELECT * FROM fine ORDERED BY fine_created;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(finesDue);
 			conn.close();
 			return result;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 			return null;
 		}
 	}
 
-	public ResultSet searchMemberFine(Connection conn) throws SQLException{
-		//SEARCH FOR A MEMBERS FINES
+	public ResultSet searchMemberFine() throws SQLException {
+		// SEARCH FOR A MEMBERS FINES
 		try {
 			login();
-			
+
 			String memberFine = "SELECT member_total_fine FROM member WHERE member_id = ?;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(memberFine);
 			conn.close();
 			return result;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 			return null;
 		}
 	}
 
-	public ResultSet searchMemberName(Connection conn) throws SQLException {
+	public ResultSet searchMemberName() throws SQLException {
 
-		//SEARCH FOR MEMBER CODE	
+		// SEARCH FOR MEMBER CODE
 		try {
 			login();
-			
+
 			String searchMemberName = "SELECT * FROM member WHERE member_name = ?;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(searchMemberName);
@@ -122,22 +122,21 @@ public class Librarian {
 		}
 	}
 
-	public ResultSet searchMemberId(Connection conn) throws SQLException {
-		//SEARCH FOR MEMBER BY NAME
+	public ResultSet searchMemberId() throws SQLException {
+		// SEARCH FOR MEMBER BY NAME
 		try {
 			login();
-			
+
 			String searchMemberId = "SELECT * FROM member WHERE member_id = ?;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(searchMemberId);
 			conn.close();
 			return result;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 			return null;
 		}
 	}
 
-	
 
 }
