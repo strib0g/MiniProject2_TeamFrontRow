@@ -1,4 +1,4 @@
-package package1;
+package src;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,20 +6,37 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.SystemColor;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+
 
 public class UserForm extends JFrame {
 
+	static UserForm frame;
 	private JPanel contentPane;
-	private JTextField textFieldID;
 	private JTextField textFieldPinCode;
 	private JTextField textFieldName;
 	private JTextField textFieldPhoneNumber;
 	private JTextField textFieldEmailAddress;
 	private JTextField textFieldHomeAddress;
+	private JTextField textFieldID;
 
 	/**
 	 * Launch the application.
@@ -41,9 +58,9 @@ public class UserForm extends JFrame {
 	 * Create the frame.
 	 */
 	public UserForm() {
-		setTitle("Library System");
+		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 510, 433);
+		setBounds(100, 100, 511, 530);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -91,11 +108,6 @@ public class UserForm extends JFrame {
 		lblAccumulatedFines.setBounds(12, 299, 180, 29);
 		contentPane.add(lblAccumulatedFines);
 		
-		textFieldID = new JTextField();
-		textFieldID.setColumns(10);
-		textFieldID.setBounds(204, 89, 257, 29);
-		contentPane.add(textFieldID);
-		
 		textFieldPinCode = new JTextField();
 		textFieldPinCode.setColumns(10);
 		textFieldPinCode.setBounds(204, 131, 257, 29);
@@ -120,6 +132,50 @@ public class UserForm extends JFrame {
 		textFieldHomeAddress.setColumns(10);
 		textFieldHomeAddress.setBounds(204, 303, 257, 29);
 		contentPane.add(textFieldHomeAddress);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LibrarianSection.main(new String [] {});
+				dispose();
+				
+			}
+		});
+		btnBack.setBackground(SystemColor.info);
+		btnBack.setForeground(SystemColor.textText);
+		btnBack.setBounds(395, 445, 85, 25);
+		contentPane.add(btnBack);
+		
+		textFieldID = new JTextField();
+		textFieldID.setColumns(10);
+		textFieldID.setBounds(204, 89, 257, 29);
+		contentPane.add(textFieldID);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ID = textFieldID.getText();
+				String pinCode = textFieldPinCode.getText();
+				String name = textFieldName.getText();
+				String phoneNumber = textFieldPhoneNumber.getText();
+				String emailAddress = textFieldEmailAddress.getText();
+				String homeAddress = textFieldHomeAddress.getText();
+				int i = BookDao.save(ID, pinCode, name, phoneNumber, emailAddress, homeAddress);  
+				//This is the SQL related code. It will be put in a class called BookDao. The class will be created by Filip ad Majed. 
+					
+				if (i>0) {
+					JOptionPane.showMessageDialog(UserForm.this, "User added successfully!");
+					LibrarianSection.main(new String [] {});
+					frame.dispose();
+				}else {
+					JOptionPane.showMessageDialog(UserForm.this,"Sorry, unable to save!");
+				}
+				}
+				
+		});
+		btnAdd.setFont(new Font("Sitka Display", Font.BOLD, 30));
+		btnAdd.setBounds(148, 358, 180, 47);
+		contentPane.add(btnAdd);
 	}
 
 }

@@ -1,4 +1,4 @@
-package package1;
+package src;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -13,9 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class LibrarianSection extends JFrame {
 
+	static LibrarianSection frame;
 	private JPanel contentPane;
 
 	/**
@@ -38,7 +40,7 @@ public class LibrarianSection extends JFrame {
 	 * Create the frame.
 	 */
 	public LibrarianSection() {
-		setTitle("Library System");
+		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 546, 629);
 		contentPane = new JPanel();
@@ -56,44 +58,73 @@ public class LibrarianSection extends JFrame {
 		JButton btnAddUser = new JButton("Add User");
 		btnAddUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UserForm.main(new String [] {}); // edit the UserForm Class
-				
+				UserForm.main(new String [] {});// edit the UserForm Class
+				dispose();
 			}
 		});
 		btnAddUser.setFont(new Font("Sitka Display", Font.BOLD, 30));
 		btnAddUser.setBounds(50, 78, 412, 47);
 		contentPane.add(btnAddUser);
 		
-		JButton btnRemoveUser = new JButton("View User");
-		btnRemoveUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnRemoveUser.setFont(new Font("Sitka Display", Font.BOLD, 30));
-		btnRemoveUser.setBounds(50, 158, 412, 47);
-		contentPane.add(btnRemoveUser);
-		
-		JButton btnViewUser = new JButton("Remove User");
+		JButton btnViewUser = new JButton("View user");
 		btnViewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewUser.main(new String [] {});
+				dispose();
 			}
 		});
 		btnViewUser.setFont(new Font("Sitka Display", Font.BOLD, 30));
-		btnViewUser.setBounds(50, 239, 412, 47);
+		btnViewUser.setBounds(50, 138, 412, 47);
 		contentPane.add(btnViewUser);
 		
-		JButton button_2 = new JButton("");
-		button_2.setFont(new Font("Sitka Display", Font.BOLD, 30));
-		button_2.setBounds(50, 323, 412, 47);
-		contentPane.add(button_2);
+		JButton btnRemoveUser = new JButton("Remove user");
+		btnRemoveUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RemoveUser.main(new String[] {});
+				dispose();
+				
+			}
+		});
+		btnRemoveUser.setFont(new Font("Sitka Display", Font.BOLD, 30));
+		btnRemoveUser.setBounds(50, 198, 412, 47);
+		contentPane.add(btnRemoveUser);
+		
+		JButton btnAddBook = new JButton("Add book");
+		btnAddBook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAddBook.setFont(new Font("Sitka Display", Font.BOLD, 30));
+		btnAddBook.setBounds(50, 258, 412, 47);
+		contentPane.add(btnAddBook);
+		
+		JButton btnViewBook = new JButton("View book");
+		btnViewBook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnViewBook.setFont(new Font("Sitka Display", Font.BOLD, 30));
+		btnViewBook.setBounds(50, 318, 412, 47);
+		contentPane.add(btnViewBook);
+		
+		JButton btnRemoveBook = new JButton("Remove book");
+		btnRemoveBook.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRemoveBook.setFont(new Font("Sitka Display", Font.BOLD, 30));
+		btnRemoveBook.setBounds(50, 378, 412, 47);
+		contentPane.add(btnRemoveBook);
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Library.main(new String [] {});
+				dispose();
 			}
 		});
 		btnLogout.setFont(new Font("Sitka Display", Font.BOLD, 30));
-		btnLogout.setBounds(50, 411, 412, 47);
+		btnLogout.setBounds(50, 461, 412, 47);
 		contentPane.add(btnLogout);
 	}
 }

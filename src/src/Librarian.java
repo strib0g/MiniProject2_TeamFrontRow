@@ -1,4 +1,4 @@
-package package1;
+package src;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -44,7 +44,7 @@ public class Librarian extends JFrame {
 	 * Create the frame.
 	 */
 	public Librarian() {
-		setTitle("Library System");
+		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 535, 289);
 		contentPane = new JPanel();

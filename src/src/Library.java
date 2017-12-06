@@ -1,4 +1,4 @@
-package package1;
+package src;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -38,7 +38,7 @@ public class Library extends JFrame {
 	 */
 	public Library() {
 		setForeground(SystemColor.activeCaption);
-		setTitle("Library System");
+		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 404, 173);
 		contentPane = new JPanel();
@@ -49,8 +49,8 @@ public class Library extends JFrame {
 		JButton btnLibrarian = new JButton("Librarian ");
 		btnLibrarian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Librarian.main(new String[] {}); //calling the Librarian class 
-				frame.dispose(); 
+				Librarian.main(new String[] {});//calling the Librarian class 
+				dispose();
 			}
 		});
 		btnLibrarian.setFont(new Font("Sitka Display", Font.BOLD, 18));
@@ -61,6 +61,7 @@ public class Library extends JFrame {
 		btnUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User.main(new String[] {});
+				dispose();
 			}
 		});
 		btnUser.setFont(new Font("Sitka Display", Font.BOLD, 18));
