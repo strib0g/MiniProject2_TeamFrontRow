@@ -18,7 +18,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class RemoveUser extends JFrame {
+public class RemoveBook extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldID;
@@ -30,7 +30,7 @@ public class RemoveUser extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RemoveUser frame = new RemoveUser();
+					RemoveBook frame = new RemoveBook();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,20 +42,20 @@ public class RemoveUser extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RemoveUser() {
+	public RemoveBook() {
 		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 412, 312);
+		setBounds(100, 100, 414, 312);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblRemoveUser = new JLabel("Remove user");
+		JLabel lblRemoveUser = new JLabel("Remove book");
 		lblRemoveUser.setToolTipText("");
 		lblRemoveUser.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRemoveUser.setFont(new Font("Sitka Display", Font.BOLD, 28));
-		lblRemoveUser.setBounds(30, 13, 334, 34);
+		lblRemoveUser.setBounds(30, 25, 334, 34);
 		contentPane.add(lblRemoveUser);
 		
 		JLabel lblEnterId = new JLabel("Enter ID");
@@ -85,15 +85,15 @@ public class RemoveUser extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String removeID = textFieldID.getText();
 				if(removeID ==null || removeID.trim().equals("")) {
-					JOptionPane.showMessageDialog(RemoveUser.this, "ID can't be blank!");
+					JOptionPane.showMessageDialog(RemoveBook.this, "ID can't be blank!");
 				}else{
 					int id = Integer.parseInt(removeID);
-					//TODO: //A class UserDao must be created with the code that would delete a user from the database through his ID.
-					int i = UserDao.delete(id);  
+					//TODO: //A class BookDao must be created with the code that would delete a book from the database through his ID.
+					int i = BooksDao.delete(id);  
 					if (i>0) {
-						JOptionPane.showMessageDialog(RemoveUser.this,"Record deleted successfully!" );
+						JOptionPane.showMessageDialog(RemoveBook.this,"Record deleted successfully!" );
 					}else {					
-					JOptionPane.showMessageDialog(RemoveUser.this, "Unable to delete given ID!");
+					JOptionPane.showMessageDialog(RemoveBook.this, "Unable to delete given ID!");
 					
 					}
 				}

@@ -160,8 +160,8 @@ public class UserForm extends JFrame {
 				String phoneNumber = textFieldPhoneNumber.getText();
 				String emailAddress = textFieldEmailAddress.getText();
 				String homeAddress = textFieldHomeAddress.getText();
-				int i = BookDao.save(ID, pinCode, name, phoneNumber, emailAddress, homeAddress);  
-				//This is the SQL related code. It will be put in a class called BookDao. The class will be created by Filip ad Majed. 
+				int i = UserDao.save(ID, pinCode, name, phoneNumber, emailAddress, homeAddress);  
+				//This is the SQL related code. It will be put in a class called UserDao. The class will be created by Filip ad Majed. 
 					
 				if (i>0) {
 					JOptionPane.showMessageDialog(UserForm.this, "User added successfully!");

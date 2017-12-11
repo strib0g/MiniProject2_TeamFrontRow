@@ -19,16 +19,13 @@ import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 
-public class ViewUser extends JFrame {
+public class ViewBooks extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	private JLabel lblUsersTable;
 	private JButton button;
-	private JLabel lblJbkbhjh;
-	private JTextField textField;
 	
 
 	/**
@@ -38,7 +35,7 @@ public class ViewUser extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewUser frame = new ViewUser();
+					ViewBooks frame = new ViewBooks();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +47,7 @@ public class ViewUser extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ViewUser() {
+	public ViewBooks() {
 		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 971, 594);
@@ -61,10 +58,10 @@ public class ViewUser extends JFrame {
 		String column []=null;
 		
 		try {
-			
+			//TODO
 			//Add code to receive data from the database 
 			Connection con=DB.login();
-			PreparedStatement ps=con.prepareStatement("select * from member",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement ps=con.prepareStatement("select * from book",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			ResultSet rs=ps.executeQuery();
 			
 			ResultSetMetaData rsmd=rs.getMetaData();
@@ -99,8 +96,8 @@ public class ViewUser extends JFrame {
 		sp.setBounds(5, 5, 943, 402);
 		contentPane.add(sp);
 		
-		lblUsersTable = new JLabel("Users table");
-		lblUsersTable.setBounds(182, 423, 677, 86);
+		lblUsersTable = new JLabel("Books table");
+		lblUsersTable.setBounds(90, 436, 709, 86);
 		lblUsersTable.setToolTipText("");
 		lblUsersTable.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsersTable.setFont(new Font("Sitka Display", Font.BOLD, 50));
@@ -117,22 +114,6 @@ public class ViewUser extends JFrame {
 		button.setBackground(SystemColor.info);
 		button.setBounds(856, 509, 85, 25);
 		contentPane.add(button);
-		
-		lblJbkbhjh = new JLabel("jbkbh.jh");
-		lblJbkbhjh.setBounds(103, 466, 56, 16);
-		contentPane.add(lblJbkbhjh);
-		
-		textField = new JTextField();
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
-		textField.setText("8777878");
-		textField.setBounds(133, 431, 116, 22);
-		contentPane.add(textField);
-		textField.setColumns(10);
 	}
 
 }

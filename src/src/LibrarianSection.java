@@ -42,7 +42,7 @@ public class LibrarianSection extends JFrame {
 	public LibrarianSection() {
 		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 546, 629);
+		setBounds(100, 100, 545, 591);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,6 +92,9 @@ public class LibrarianSection extends JFrame {
 		JButton btnAddBook = new JButton("Add book");
 		btnAddBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BooksForm.main(new String [] {});
+				dispose();
+				
 			}
 		});
 		btnAddBook.setFont(new Font("Sitka Display", Font.BOLD, 30));
@@ -101,6 +104,9 @@ public class LibrarianSection extends JFrame {
 		JButton btnViewBook = new JButton("View book");
 		btnViewBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ViewBooks.main(new String [] {} );
+				dispose( );
+				
 			}
 		});
 		btnViewBook.setFont(new Font("Sitka Display", Font.BOLD, 30));
@@ -110,6 +116,8 @@ public class LibrarianSection extends JFrame {
 		JButton btnRemoveBook = new JButton("Remove book");
 		btnRemoveBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				RemoveBook.main(new String[] {});
+				dispose();	
 			}
 		});
 		btnRemoveBook.setFont(new Font("Sitka Display", Font.BOLD, 30));
@@ -124,7 +132,7 @@ public class LibrarianSection extends JFrame {
 			}
 		});
 		btnLogout.setFont(new Font("Sitka Display", Font.BOLD, 30));
-		btnLogout.setBounds(50, 461, 412, 47);
+		btnLogout.setBounds(90, 468, 339, 47);
 		contentPane.add(btnLogout);
 	}
 }

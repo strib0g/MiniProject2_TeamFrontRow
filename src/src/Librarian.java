@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import java.awt.SystemColor;
+import java.awt.Color;
 
 public class Librarian extends JFrame {
 	static Librarian frame;
@@ -46,7 +47,7 @@ public class Librarian extends JFrame {
 	public Librarian() {
 		setTitle("Library system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 535, 289);
+		setBounds(100, 100, 531, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -84,7 +85,7 @@ public class Librarian extends JFrame {
 			
 			if (name.equals("meme") && password.equals("meme123")) {
 				LibrarianSection.main(new String [] {});
-				frame.dispose();
+				dispose();
 			}
 			else {
 				JOptionPane.showMessageDialog(Librarian.this , "Sorry, the username or the password is inccorect", "Login Error!", JOptionPane.ERROR_MESSAGE);
@@ -92,15 +93,29 @@ public class Librarian extends JFrame {
 				passwordField.setText("");
 					
 				}
+			
 			}
+			
 			
 		});
 		button.setFont(new Font("Sitka Display", Font.BOLD, 30));
-		button.setBounds(372, 96, 118, 97);
+		button.setBounds(370, 94, 118, 97);
 		contentPane.add(button);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(163, 164, 176, 28);
 		contentPane.add(passwordField);
+		
+		JButton button_1 = new JButton("Back");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Library.main(new String [] {});
+				dispose();
+			}
+		});
+		button_1.setForeground(Color.BLACK);
+		button_1.setBackground(SystemColor.info);
+		button_1.setBounds(416, 245, 85, 25);
+		contentPane.add(button_1);
 	}
 }
