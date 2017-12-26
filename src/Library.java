@@ -180,14 +180,23 @@ public class Library {
     }
 
     public ResultSet borrowedBooksMonths(int year, int month)throws SQLException{
-        int nextMonth = month +1;
-        int nextYear = year;
-        if(nextMonth > 12){
-            nextYear += 1;
-            nextMonth = 1;
+        int lengthMonth = 28;
+        if(month == 2 ){
+            if(year % 4 == 0) {
+                lengthMonth = 29;
+            }
+            else {
+                lengthMonth = 28;
+            }
+        }
+        else if(month == 4 || month == 6 || month == 9 ||month == 11){
+            lengthMonth = 30;
+        }
+        else if(month == 1 || month == 3 ||month == 5 ||month == 7 ||month == 8 ||month == 10 ||month == 12){
+            lengthMonth = 31;
         }
 
-        String query ="SELECT count(*) FROM borrowedbooks WHERE borrow_date_time > "+ year +"-"+ month + "-0" +" AND borrow_date_time < " + nextYear + "-" + nextMonth + "-1";
+        String query ="SELECT count(*) FROM borrowedbooks WHERE borrow_date_time BETWEEN '"+ year +"-"+ month + "-01' AND '" + year + "-" + month + "-" + lengthMonth +"'";
         ResultSet set = querySQLcommand(query);
         return set;
     }

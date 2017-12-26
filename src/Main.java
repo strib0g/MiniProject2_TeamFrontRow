@@ -26,10 +26,7 @@ public class Main {
                 System.out.println(list.get(i));
             }  It seems to work. */
             // lib.loanBook("4","1","1"); IT WORKS!
-
-            //System.out.println(lib.borrowedBookCount().getString(1)); // Not working.
-
-            System.out.println(lib.borrowedBooksMonths(2017, 11).getString(1)); // Not really working yet.
+           // System.out.println(lib.borrowedBooksMonths(2017, 10).getString(1)); // IT WORKS!!
 
 
 
