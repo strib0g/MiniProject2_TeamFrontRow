@@ -35,7 +35,9 @@ public class Library {
 
     private ResultSet querySQLcommand(String query) throws SQLException{
         Statement state = con.createStatement();
-        return state.executeQuery(query);
+        ResultSet set = state.executeQuery(query);
+        set.next();
+        return set;
     }
 
     public String currentDate(){
@@ -43,6 +45,39 @@ public class Library {
 
         return date;
     } // prototype. DATE - format YYYY-MM-DD
+
+    public String dueDate(){
+        int year = calendar.get(Calendar.YEAR);
+        int month = (calendar.get(Calendar.MONTH) + 1);
+        int day = calendar.get(Calendar.DAY_OF_MONTH) + 21;
+
+        if(year % 4 == 0 && day > 29 && month == 2 ){
+            month += 1;
+            day -= 29;
+        }
+        else if(day > 28 && month == 2){
+            month += 1;
+            day -= 28;
+        }
+        else if(day > 30 && (month == 4 || month == 6 || month == 9 || month == 11)){
+            month += 1;
+            day -= 30;
+        }
+        else if( day> 31){
+            month += 1;
+            day -= 31;
+        }
+        if(month>12){
+            month = 1;
+            year += 1;
+        }
+
+        String dueDate = year+"-"+ month+ "-" + day;;
+
+
+
+        return dueDate;
+    }
 
 
     public void addBook(String book_author_firstname, String  book_author_surname, String book_genre, String book_publisher, String book_shelf_number, String book_title)throws SQLException{
@@ -65,10 +100,7 @@ public class Library {
 
     public boolean bookAvailable(String id) throws SQLException{
         String query = "SELECT * FROM book WHERE book_id = " + id;
-        System.out.println("at");
         ResultSet set = querySQLcommand(query);
-        System.out.println("aty");
-        set.next();
         if(set.getString(4).equals("YES")){
             return true;
         }
@@ -86,10 +118,10 @@ public class Library {
     }
 
     public String checkReturnDate(String id) throws SQLException{
-        String query = "SELECT * FROM borrowedbooks WHERE book_id = " + id + "AND is_returned = NO";
+        String query = "SELECT * FROM borrowedbooks WHERE book_id = " + id + " AND is_returned = 'NO'";
         ResultSet set = querySQLcommand(query);
 
-        return set.getString(6);
+        return set.getString(8);
     }
 
     public double payFine(String id, double payment)throws SQLException{
@@ -107,76 +139,58 @@ public class Library {
         String update = "UPDATE member SET member_total_fine = "+ remainingFine + "WHERE member_id = " + id;
         createSQLCommand(update);
         return excess;
-    }
+    } // Untested
 
 
 
     public void loanBook(String bookId, String userId, String librarianID)throws SQLException{
-        String newBorrow = "INSERT INTO borrowedbooks(member_id, book_id, librarian_id, borrow_date_time, return_date_time, delay_days," +
-                " due_date, is_returned, borrow_created, ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String newBorrow = "INSERT INTO borrowedbooks(member_id, book_id, librarian_id, borrow_date_time," +
+                " due_date, is_returned, borrow_created) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement state = con.prepareStatement(newBorrow);
         state.setString(1, userId );
         state.setString(2, bookId );
         state.setString(3, librarianID );
         state.setString(4, currentDate()); // DATE
-        state.setString(5, "0"); // DATE
-        state.setString(6, ""); // DATE
-        state.setString(7, ""); // DATE
-        state.setString(8, "0");
-        state.setString(9, currentDate()); // DATE
+        state.setString(5, dueDate()); // DATE
+        state.setString(6, "NO");
+        state.setString(7, currentDate()); // DATE
 
-        String update = "UPDATE book SET book_updated" + currentDate() +"WHERE book_id = " + bookId; // FIGURE OUT DATETIME!
+        state.execute();
+
+       String  update = "UPDATE book SET book_availability = 'NO', book_updated = '" +currentDate() + "' WHERE book_id = '" + bookId + "'" ;
         createSQLCommand(update);
-
-        update = "UPDATE book SET book_availability = 'NO' WHERE book_id = " + bookId ;
-        createSQLCommand(update);
-
-
     }
 
-    public void setNewReturnDate(String borrow_transaction_id, String newReturn)throws SQLException{
-        String command = "UPDATE borrowedbooks SET return_date_time = " + newReturn + "WHERE borrow_transaction_id = " + borrow_transaction_id;
+    public void setNewDueDate(String borrow_transaction_id, String newReturn)throws SQLException{
+        String command = "UPDATE borrowedbooks SET due_date='" + newReturn + "' WHERE borrow_transaction_id = " + borrow_transaction_id;
         createSQLCommand(command);
 
-    } // CHECK FOR BUGS.
+    }
 
-    public String unreturnedBooksUser(String uId)throws SQLException{
-        String query = "SELECT * borrowedbooks WHERE is_returned = 0 AND member_id = " + uId;
+    public ArrayList<String > unreturnedBooksUser(String uId)throws SQLException{
+        ArrayList<String > list = new ArrayList<String>();
+        String query = "SELECT * FROM borrowedbooks WHERE is_returned = 0 AND member_id = '" + uId + "'";
         ResultSet set = querySQLcommand(query);
+        while (!set.isAfterLast()){
+            list.add(set.getString(4));
+            set.next();
+        }
 
-        return set.getString(4);
+        return list; //set.getString(4);
     }
 
-    public ResultSet borrowedBookCount()throws SQLException{ // Prototype. Checks how many books where borrowed every day.
-        String query = "SELECT borrow_date_time,COUNT(*) FROM borrowedbooks GROUP BY borrow_date_time WHERE is_returned = 0";
+    public ResultSet borrowedBooksMonths(int year, int month)throws SQLException{
+        int nextMonth = month +1;
+        int nextYear = year;
+        if(nextMonth > 12){
+            nextYear += 1;
+            nextMonth = 1;
+        }
+
+        String query ="SELECT count(*) FROM borrowedbooks WHERE borrow_date_time > "+ year +"-"+ month + "-0" +" AND borrow_date_time < " + nextYear + "-" + nextMonth + "-1";
         ResultSet set = querySQLcommand(query);
-
-        return set; // set is a set of count of books borrowed and the day they were borrowed grouped by the day they were borrowed.
+        return set;
     }
-
-    public ArrayList<ResultSet> borrowedBookMonths()throws SQLException{
-        ArrayList<ResultSet> list = new ArrayList<ResultSet>();
-
-        int year = 2017;
-        int month = 11;
-        String query = "SELECT COUNT(*) WHERE CONTAINS(borrow_date_time, ' " + year + "-" + (month + 1) +"'" ;
-        do{
-           ResultSet set = querySQLcommand(query);
-           list.add(set);
-            if(month == 12){
-                month = 1;
-                year += 1;
-            }
-            else {
-                month += 1;
-            }
-
-        }while (year != calendar.YEAR && month != calendar.MONTH);
-
-
-        return list;
-    }
-
 }
 
 
