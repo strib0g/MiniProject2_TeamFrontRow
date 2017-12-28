@@ -139,9 +139,7 @@ public class Library {
         String update = "UPDATE member SET member_total_fine = "+ remainingFine + "WHERE member_id = " + id;
         createSQLCommand(update);
         return excess;
-    } // Untested
-
-
+    } // works
 
     public void loanBook(String bookId, String userId, String librarianID)throws SQLException{
         String newBorrow = "INSERT INTO borrowedbooks(member_id, book_id, librarian_id, borrow_date_time," +
@@ -196,7 +194,7 @@ public class Library {
             lengthMonth = 31;
         }
 
-        String query ="SELECT count(*) FROM borrowedbooks WHERE borrow_date_time BETWEEN '"+ year +"-"+ month + "-01' AND '" + year + "-" + month + "-" + lengthMonth +"'";
+        String query ="SELECT count(*), borrow_date_time FROM borrowedbooks WHERE borrow_date_time BETWEEN '"+ year +"-"+ month + "-01' AND '" + year + "-" + month + "-" + lengthMonth +"'";
         ResultSet set = querySQLcommand(query);
         return set;
     }
