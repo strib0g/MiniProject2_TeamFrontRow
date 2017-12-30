@@ -89,6 +89,11 @@ public class LibrarianMainFrame extends javax.swing.JFrame {
         jLabel7.setText("Search ");
 
         jButton6.setIcon(new javax.swing.ImageIcon("/Users/majeddalain/Desktop/Icons png/search-5.png")); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -141,6 +146,11 @@ public class LibrarianMainFrame extends javax.swing.JFrame {
         jLabel1.setText("Modify User");
 
         jButton2.setIcon(new javax.swing.ImageIcon("/Users/majeddalain/Desktop/Icons png/graph.png")); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon("/Users/majeddalain/Desktop/Icons png/books-3.png")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +305,18 @@ public class LibrarianMainFrame extends javax.swing.JFrame {
         this.dispose();
         Tools.openForm(new AddBook());
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Tools.openForm(new LibraryStatistics());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Tools.openForm(new LibrarianBookSearch());
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

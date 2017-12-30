@@ -220,9 +220,9 @@ public class Library {
     }
     
     public static void allDelayedBooks(String id, JTable table){
-        String st = "select b.book_title,a.borrow_date_time,a.due_date"
+        String st = "select a.book_id ,b.book_title,a.borrow_date_time,a.due_date"
                 + ",a.is_returned from borrowedbooks a,book b where a.book_id = b.book_id and "
-                + "member_id ="+id+" and a.is_returned ='NO';";
+                + "member_id ="+id+" and a.is_returned ='NO' and (current_date - a.due_date) > 0 ;";
         if(Go.runQuery(st)){
         Go.fillToJTable(st, table);
         }
@@ -259,6 +259,37 @@ public class Library {
     }
                    
     }
+    
+    public static void allLibraryBooks(JTable table){
+        String st = "select book_id,book_title,book_publisher,book_availability,"
+                + "book_author_surname,book_author_firstname,book_shelf_number,"
+                + "book_genre,book_created,book_updated from book ;";
+        
+        Go.fillToJTable(st, table);
+    }
+    
+    
+    public static void allLibraryUsers(JTable table){
+        String st = "select member_id, member_name, member_phone_number, member_email,"
+                + " member_address, member_total_fine from member;";
+        Go.fillToJTable(st, table);
+    }
+    
+    public static void allBorrowedLibraryBooks(JTable table){
+        String st = "select a.book_id,b.book_title,a.borrow_date_time,a.due_date,"
+                + "c.member_name, a.member_id from borrowedbooks a,book b, member c where a.book_id = b.book_id "
+                + "and a.is_returned ='NO'  and a.member_id = c.member_id ;";
+        Go.fillToJTable(st, table);
+    }
+    
+    public static void allDelayedLibraryBooks(JTable table){
+         String st = "select a.book_id,b.book_title,a.borrow_date_time,a.due_date,"
+                + "c.member_name, a.member_id from borrowedbooks a,book b, member c where a.book_id = b.book_id "
+                + "and a.is_returned ='NO'  and a.member_id = c.member_id and (current_date -a.due_date) > 0 ;";
+        Go.fillToJTable(st, table);
+    }
+    
+    
     
     
 }
