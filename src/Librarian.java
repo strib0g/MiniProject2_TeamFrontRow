@@ -8,12 +8,12 @@ import java.sql.Statement;
 
 public class Librarian {
 
-	private String url = "jdbc:mysql://leia.skip.chalmers.se:3306/team1?autoReconnect=true&useSSL=false";
-	private String username = "teamone";
-	private String password = "HSaaD5vtp3K6QERq";
-	private Connection conn;
+	private static String url = "jdbc:mysql://leia.skip.chalmers.se:3306/team1?autoReconnect=true&useSSL=false";
+	private static String username = "teamone";
+	private static String password = "HSaaD5vtp3K6QERq";
+	private static Connection conn;
 
-	public Connection login() throws SQLException {
+	public static Connection connect() throws SQLException {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (Exception E) {
@@ -26,7 +26,7 @@ public class Librarian {
 	public void removeBook() throws SQLException {
 
 		try {
-			login();
+			connect();
 
 			// THIS IS PROBABLY WRONG AND NEEDS TESTING
 			String sqlRemoveBook = "DELETE FROM book WHERE book_id = ?;";
@@ -43,7 +43,7 @@ public class Librarian {
 	public ResultSet totalFines() throws SQLException {
 		// TOTAL SOME OF FINES
 		try {
-			login();
+			connect();
 
 			String totalFines = "SELECT SUM member_total_fine FROM book;";
 			Statement st = conn.createStatement();
@@ -59,7 +59,7 @@ public class Librarian {
 	public ResultSet finesTable() throws SQLException {
 		// SHOW THE FINES TABLE
 		try {
-			login();
+			connect();
 
 			String showFinesTable = "SELECT * FROM fine;";
 			Statement st = conn.createStatement();
@@ -76,7 +76,7 @@ public class Librarian {
 	public ResultSet finesDue() throws SQLException {
 		// SHOWS THE LATEST FINE DUE FROM FINEWS TABLE
 		try {
-			login();
+			connect();
 
 			String finesDue = "SELECT * FROM fine ORDERED BY fine_created;";
 			Statement st = conn.createStatement();
@@ -92,7 +92,7 @@ public class Librarian {
 	public ResultSet searchMemberFine() throws SQLException {
 		// SEARCH FOR A MEMBERS FINES
 		try {
-			login();
+			connect();
 
 			String memberFine = "SELECT member_total_fine FROM member WHERE member_id = ?;";
 			Statement st = conn.createStatement();
@@ -109,7 +109,7 @@ public class Librarian {
 
 		// SEARCH FOR MEMBER CODE
 		try {
-			login();
+			connect();
 
 			String searchMemberName = "SELECT * FROM member WHERE member_name = ?;";
 			Statement st = conn.createStatement();
@@ -125,7 +125,7 @@ public class Librarian {
 	public ResultSet searchMemberId() throws SQLException {
 		// SEARCH FOR MEMBER BY NAME
 		try {
-			login();
+			connect();
 
 			String searchMemberId = "SELECT * FROM member WHERE member_id = ?;";
 			Statement st = conn.createStatement();

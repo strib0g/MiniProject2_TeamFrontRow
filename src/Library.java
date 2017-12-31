@@ -13,12 +13,14 @@ public class Library extends Librarian {
 	public ResultSet sortTitle() throws SQLException {
 		// SORT BY TITLE CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String sqlSortTitle = "SELECT* FROM book ORDER BY book_title;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(sqlSortTitle);
 
+			System.out.println(sqlSortTitle);
+			System.out.println(result);
 			conn.close();
 			return result;
 		} catch (SQLException e) {
@@ -31,7 +33,7 @@ public class Library extends Librarian {
 	public ResultSet sortTitleDesc() throws SQLException {
 		// SORT BY TITLE DESC CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String sqlSortTitleDesc = "SELECT * FROM book ORDER BY book_title DESC;";
 			Statement st = conn.createStatement();
@@ -48,9 +50,9 @@ public class Library extends Librarian {
 	public ResultSet sortSurname() throws SQLException {
 		// SORT BY SURNAME CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
-			String sqlSortSurname = "SELECT * FROM book ORDER BY book_surname;";
+			String sqlSortSurname = "SELECT * FROM book ORDER BY book_author_surname;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(sqlSortSurname);
 
@@ -65,9 +67,9 @@ public class Library extends Librarian {
 	public ResultSet sortSurnameDes() throws SQLException {
 		// SORT BY SURNAME DESC CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
-			String sqlSortSurnameDesc = "SELECT * FROM book ORDER BY book_surname DESC;";
+			String sqlSortSurnameDesc = "SELECT * FROM book ORDER BY book_author_surname DESC;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(sqlSortSurnameDesc);
 
@@ -82,9 +84,9 @@ public class Library extends Librarian {
 	public ResultSet sortFirstName() throws SQLException {
 		// SORT BY FIRSTNAME CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
-			String sqlSortFirstname = "SELECT * FROM book ORDER BY book_firstname;";
+			String sqlSortFirstname = "SELECT * FROM book ORDER BY book_author_firstname;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(sqlSortFirstname);
 
@@ -99,9 +101,9 @@ public class Library extends Librarian {
 	public ResultSet sortFirstNameDesc() throws SQLException {
 		// SORT BY FIRSTNAME DESC CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
-			String sqlSortFirstnameDesc = "SELECT * FROM book ORDER BY book_firstname DESC;";
+			String sqlSortFirstnameDesc = "SELECT * FROM book ORDER BY book_author_firstname DESC;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(sqlSortFirstnameDesc);
 
@@ -117,7 +119,7 @@ public class Library extends Librarian {
 		// SORT BY GENRE CODE TO TEST
 
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String sqlSortGenre = "SELECT * FROM book ORDER BY book_genre;";
 			Statement st = conn.createStatement();
@@ -134,7 +136,7 @@ public class Library extends Librarian {
 	public ResultSet sortGenreDesc() throws SQLException {
 		// SORT BY GENRE DESC CODE TO TEST;
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String sqlSortGenreDesc = "SELECT * FROM book ORDER BY book_genre DESC;";
 			Statement st = conn.createStatement();
@@ -151,7 +153,7 @@ public class Library extends Librarian {
 	public ResultSet sortPublisher() throws SQLException {
 		// SORT BY PUBLISHER CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String sqlSortPublisher = "SELECT * FROM book ORDER BY book_publisher;";
 			Statement st = conn.createStatement();
@@ -168,9 +170,9 @@ public class Library extends Librarian {
 	public ResultSet sortPublisherDesc() throws SQLException {
 		// SORT BY PUBLISHER DESC CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
-			String sqlSortPublisherDesc = "SELECT * FROM book ORDER BY bok_publisher DESC;";
+			String sqlSortPublisherDesc = "SELECT * FROM book ORDER BY book_publisher DESC;";
 			Statement st = conn.createStatement();
 			ResultSet result = st.executeQuery(sqlSortPublisherDesc);
 			conn.close();
@@ -184,7 +186,7 @@ public class Library extends Librarian {
 	public ResultSet sortShelf() throws SQLException {
 		// SORT BY SHELF CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String sqlSortShelf = "SELECT * FROM book ORDER BY book_shelf_number;";
 			Statement st = conn.createStatement();
@@ -200,7 +202,7 @@ public class Library extends Librarian {
 	public ResultSet sortShelfDesc() throws SQLException {
 		// SORT BY SHELF DESC CODE TO TEST
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String sqlSortShelfDesc = "SELECT * FROM book ORDER BY book_shelf_number DESC;";
 			Statement st = conn.createStatement();
@@ -216,7 +218,7 @@ public class Library extends Librarian {
 	public ResultSet searchBookPublisher() throws SQLException {
 		// SEARCH BOOK BY PUBLISHER
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String searchPublisher = "SELECT * FROM book WHERE book_publisher = ?;";
 			Statement st = conn.createStatement();
@@ -232,7 +234,7 @@ public class Library extends Librarian {
 	public ResultSet searchBookGenre() throws SQLException {
 		// SEARCH BOOK BY GENRE
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String searchGenre = "SELECT * FROM book WHERE book_genre = ?;";
 			Statement st = conn.createStatement();
@@ -248,7 +250,7 @@ public class Library extends Librarian {
 	public ResultSet searchAuthorAvailbilty() throws SQLException {
 		// SEARCH AVAILABLE BOOKS BY AUTHOR
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String searchAvailableAuthor = "SELECT * FROM book WHERE book_availabilty = 1 AND WHERE book_author = ?;";
 			Statement st = conn.createStatement();
@@ -264,7 +266,7 @@ public class Library extends Librarian {
 	public ResultSet seachGenreAvailablity() throws SQLException {
 		// SEARCH AVILABLE GENRES
 		try {
-			Connection conn = login();
+			Connection conn = connect();
 
 			String searchAvailableGenre = "SELECT * FROM book WHERE book_availablity = 1 AND WHERE book_author = ?;";
 			Statement st = conn.createStatement();
